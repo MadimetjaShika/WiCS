@@ -20,7 +20,7 @@ WiCS makes use of the following open source technologies:
 
 ### Development
 
-Wish to contribute? Drop me a messege on GitHub!
+Wish to contribute? Drop me an email! mmjshika@gmail.com
 
 License
 ----
