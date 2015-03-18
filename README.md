@@ -7,7 +7,7 @@ WiCS allows users to specify spreadsheets, along with column headings and valida
 WiCS is a lightweight laravel application with an object-relational graph database on the back-end.
 
 ### Version
-1.0.1
+1.0.2
 
 ### Technologies
 
@@ -28,6 +28,6 @@ License
 Apache 2.0
 
 [Madi]:https://github.com/MadimetjaShika
-[laravel]:http://laravel.com/
+[laravel 5]:http://laravel.com/docs/5.0
 [NeoEloquent]:https://github.com/Vinelab/NeoEloquent
 [Laravel Excel]:http://www.maatwebsite.nl/laravel-excel/docs

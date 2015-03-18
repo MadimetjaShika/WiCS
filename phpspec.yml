@@ -1,0 +1,5 @@
+suites:
+    main:
+        namespace: WiCS
+        psr4_prefix: WiCS
+        src_path: app
