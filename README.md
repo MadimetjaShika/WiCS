@@ -13,7 +13,7 @@ WiCS is a lightweight laravel application with an object-relational graph databa
 
 WiCS makes use of the following open source technologies:
 
-* [Laravel] - A PHP MVC framework for lightweight powerful applications.
+* [Laravel 5] - A PHP MVC framework for lightweight powerful applications.
 * [NeoEloquent] - An eloquent laravel driver for Neo4J graph database.
 * [Laravel Excel] - An eloquent laravel driver for importing and exporting Excel and CSV files.
 * And of course, all the good client side technologies :)
@@ -28,6 +28,6 @@ License
 Apache 2.0
 
 [Madi]:https://github.com/MadimetjaShika
-[laravel 5]:http://laravel.com/docs/5.0
+[Laravel 5]:http://laravel.com/docs/5.0
 [NeoEloquent]:https://github.com/Vinelab/NeoEloquent
 [Laravel Excel]:http://www.maatwebsite.nl/laravel-excel/docs

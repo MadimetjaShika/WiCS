@@ -26,8 +26,18 @@ class HelperServiceProvider extends ServiceProvider {
 	        require_once($filename);
 	    }
 
+	    //Require User Helpers
+	    foreach (glob(app_path().'/Helpers/UserHelpers/*.php') as $filename){
+	        require_once($filename);
+	    }
+
 	    //Require Spreadsheet Helpers
 	    foreach (glob(app_path().'/Helpers/SpreadsheetHelpers/*.php') as $filename){
+	        require_once($filename);
+	    }
+
+	    //Require Spreadsheet Factory
+	    foreach (glob(app_path().'/Helpers/SpreadsheetHelpers/SpreadsheetFactory/*.php') as $filename){
 	        require_once($filename);
 	    }
 	}

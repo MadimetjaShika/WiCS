@@ -2,6 +2,8 @@
 
 /**
  * Defines and houses all functionality related to managing spreadsheets.
+ * Controllers should not define any logic, all spreadsheet specific logic should be defined
+ * in this helper class an referenced from here.
  */
 class ManageSpreadsheetsHelper{
 	
@@ -101,16 +103,31 @@ class ManageSpreadsheetsHelper{
 	}
 
 	/**
+	 * Triggers a download widget to download the speicified spreadsheet instance in parameters to 
+	 * the user.
 	 * 
+	 * If the spreadsheet instance does not exist in the database, an exception is thrown with a 
+	 * descriptive error message.
+	 *
+	 * @param spreadsheetInstance An instance of the spreadsheet to be downloaded.
+	 *
+	 * @return Triggers the download widget for the user to download the spreadsheet, or throws an
+	 * exception if the spreadsheet does not exist in the database.
 	 */
 	public function downloadSpreadsheet($spreadsheetInstance){
 
 	}
 
 	/**
-	 * 
+	 * Creates a PDF version of the spreadsheet instance passed as parameter, and thereafter calls the 
+	 * 'downloadSpreadsheet' function to download the spreadsheet in PDF format.
+	 *
+	 * @param spreadsheetInstance An instance of the spreadsheet to be converted and downloaded.
+	 *
+	 * @return Returns true if the spreadsheet was successfull converted to PDF and if the download 
+	 * proceedure was successful, else throws an exception with a descriptive error message.
 	 */
-	public function createAndDownloadPDFVersionOfSpreadsheet($spreadsheetInstance1){
+	public function createAndDownloadPDFVersionOfSpreadsheet($spreadsheetInstance){
 
 	}
 }
