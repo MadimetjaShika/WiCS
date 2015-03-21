@@ -28,9 +28,17 @@ class HomeController extends Controller {
 	 *
 	 * @return Response
 	 */
-	public function index()
+	public function showIndex()
 	{
 		return view('home');
+	}
+
+	public function showHelp(){
+
+	}
+
+	public function showInsufficientPrivileges(){
+		
 	}
 
 }
