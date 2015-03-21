@@ -17,8 +17,10 @@ class ConcreteViewableModifyableSpreadsheetWithoutValidationCreator extends Abst
 	 * @param $_creationDate The creation date of the spreadsheet.
 	 * 
 	 * @param $_lastModifiedDate The last modified date of the spreadsheet.
+	 *
+	 * @param $_validationRules This field MUST be null and ignored.
 	 */
-	public function FactoryMethod($_title, $_description, $_owner, $_creationDate, $_lastModifiedDate) {
+	public function FactoryMethod($_title, $_description, $_owner, $_creationDate, $_lastModifiedDate, $_validationRules) {
         return new ViewableModifyableSpreadsheetWithoutValidation($_title, $_description, $_owner, $_creationDate, $_lastModifiedDate);
     }
 }
