@@ -1,5 +1,7 @@
 <?php namespace WiCS\Http\Controllers;
 
+ use Auth;
+
 /**
  * Application home controller. Handles all 'general'requests that are not directly
  * specific to users or spreadsheets.
@@ -16,17 +18,21 @@ class HomeController extends Controller {
 	 */
 	public function __construct()
 	{
-		$this->middleware('auth');
+		//$this->middleware('auth');
 	}
 
 	/**
-	 * Show the application dashboard to the user.
+	 * Show the application dashboard to the user if the user if authenticated.
+	 * Else present the user with the welcome page for guest users.
 	 *
 	 * @return Response
 	 */
 	public function showIndex()
 	{
-		return view('home');
+		if( Auth::check() )
+			return view('home');
+		else
+			return view('welcome');
 	}
 
 	/**
