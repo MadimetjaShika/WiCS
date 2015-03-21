@@ -13,7 +13,7 @@ class ManageSpreadsheetsController extends Controller {
 	 * @return Response
 	 */
 	public function showSpreadsheets(){
-		//
+		
 	}
 
 	/**
@@ -24,7 +24,7 @@ class ManageSpreadsheetsController extends Controller {
 	 * @return Response
 	 */
 	public function showSpreadsheet($id){
-		//
+		
 	}
 
 	/**
@@ -32,8 +32,17 @@ class ManageSpreadsheetsController extends Controller {
 	 *
 	 * @return Response
 	 */
-	public function createSpreadsheet(){
-		//
+	public function showCreateSpreadsheet(){
+		
+	}
+
+	/**
+	 * Process the request to create a spreadsheet.
+	 * 
+	 * @return Response
+	 */
+	public function doCreateSpreadsheet(){
+
 	}
 	
 	/**
@@ -43,7 +52,7 @@ class ManageSpreadsheetsController extends Controller {
 	 * @return Response
 	 */
 	public function modifySpreadsheet($id){
-		//
+		
 	}
 
 	/**
@@ -53,6 +62,17 @@ class ManageSpreadsheetsController extends Controller {
 	 * @return Response
 	 */
 	public function downloadSpreadsheet($id){
-		//
+		
+	}
+
+	/**
+	 * Remove a user's spreadsheet from the system.
+	 * 
+	 * @param  $item the spreadsheet to be removed.
+	 * 
+	 * @return Response
+	 */
+	public function doRemoveSpreadsheets($item){
+
 	}
 }

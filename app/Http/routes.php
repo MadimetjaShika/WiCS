@@ -46,10 +46,16 @@ Route::group(array('before' => 'guest'), function(){
 	Route::group(array('before' => 'csrf'), function(){
 		//Route to process login
 		Route::post('login', array('as' => 'doLogin', 'uses' => 'Auth\AuthController@doLogin'));
+
+		//Route to process registration
+		Route::post('register', array('as' => 'doRegistration', 'uses' => 'Auth\AuthController@doRegistration'));
 	});
 	
 	//Route to login page
 	Route::get('login', array('as' => 'login', 'uses' => 'Auth\AuthController@showLogin'));
+
+	//Route to register page
+	Route::get('register', array('as' => 'register', 'uses' => 'Auth\AuthController@showRegister'));
 
 	//Route to forgot password page
 	Route::get('forgotPassword', array('as'=>'forgotPassword', 'uses' => 'Auth\AuthController@forgotPassword'));
@@ -98,7 +104,7 @@ Route::group(array('before' => 'auth'), function(){
 	/**********************************************************/
 
 	//Route to current authenticated user profile page
-	Route::get('profile', array('as' => 'getProfile', 'uses' => 'ManageUsersController@showProfile'));
+	Route::get('profile', array('as' => 'showProfile', 'uses' => 'ManageUsersController@showProfile'));
 
 	//Route to display the password reset page
 	Route::get('password/reset', array('as' => 'resetPassword', 'uses' => 'Auth\AuthController@resetPassword'));
@@ -113,15 +119,24 @@ Route::group(array('before' => 'auth'), function(){
 	/***************Spreadsheet Specific Routes****************/
 	/**********************************************************/
 
+	//Route to create spreadsheet
+	Route::get('spreadsheet/create', array('as' => 'showCreateSpreadsheet', 'uses' => 'ManageSpreadsheetsController@showCreateSpreadsheet'));
+
+	//Route to process create spreadsheet
+	Route::post('spreadsheet/create', array('as' => 'doCreateSpreadsheet', 'uses' => 'ManageSpreadsheetsController@doCreateSpreadsheet'));
+
 	//Route to view 'all' spreadsheets, relative to the requesting user
 	Route::get('spreadsheet/view', array('as' => 'getAllSpreadsheets', 'uses' => 'ManageSpreadsheetsController@showSpreadsheets'));
 
 	//Route to view a specific spreadsheet
 	Route::get('spreadsheet/view/{item}', array('as' => 'getSpreadsheet', 'uses' => 'ManageSpreadsheetsController@showSpreadsheet'));
-	
+
 	//Route to download spreadsheet
 	Route::post('spreadsheet/download/{item}', array('as' => 'downloadSpreadsheet', 'uses' => 'ManageSpreadsheetsController@downloadSpreadsheet'));
 
 	//Route to submit modified spreadsheet
 	Route::post('spreadsheet/submit/{item}', array('as' => 'submitSpreadsheet', 'uses' => 'ManageSpreadsheetsController@modifySpreadsheet'));
+
+	//Route to process removal of spreadsheet
+	Route::post('spreadsheet/submit/{item}', array('as' => 'doRemoveSpreadsheets', 'uses' => 'ManageSpreadsheetsController@doRemoveSpreadsheets'));	
 });
