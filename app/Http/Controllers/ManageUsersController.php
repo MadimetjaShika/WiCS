@@ -5,80 +5,48 @@ use WiCS\Http\Controllers\Controller;
 
 use Illuminate\Http\Request;
 
+/**
+ * Controller to hanlde all functionality to do directly with users.
+ * Specific logic should not be defined in this class, but should be 
+ * referenced from the helper classes. Ensure that logic is not alread 
+ * defined before writing anything.
+ */
 class ManageUsersController extends Controller {
 
 	/**
-	 * Display a listing of the resource.
+	 * Show the user's profile
 	 *
 	 * @return Response
 	 */
-	public function index()
-	{
+	public function showProfile(){
 		//
 	}
 
 	/**
-	 * Show the form for creating a new resource.
+	 * Show all users on the system to the super user.
 	 *
 	 * @return Response
 	 */
-	public function create()
-	{
+	public function showUsersForSuperUser(){
 		//
 	}
 
 	/**
-	 * Store a newly created resource in storage.
+	 * Remove a user from the system
 	 *
 	 * @return Response
 	 */
-	public function store()
-	{
+	public function removeUserForSuperUser(){
 		//
 	}
 
 	/**
-	 * Display the specified resource.
+	 * Show the page for editing the specified user.
 	 *
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function show($id)
-	{
+	public function modifyUserProfile($id){
 		//
 	}
-
-	/**
-	 * Show the form for editing the specified resource.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function edit($id)
-	{
-		//
-	}
-
-	/**
-	 * Update the specified resource in storage.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function update($id)
-	{
-		//
-	}
-
-	/**
-	 * Remove the specified resource from storage.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function destroy($id)
-	{
-		//
-	}
-
 }

@@ -1,17 +1,13 @@
 <?php namespace WiCS\Http\Controllers;
 
+/**
+ * Application home controller. Handles all 'general'requests that are not directly
+ * specific to users or spreadsheets.
+ * Specific logic should not be defined in this class, but should be 
+ * referenced from the helper classes. Ensure that logic is not alread 
+ * defined before writing anything.
+ */
 class HomeController extends Controller {
-
-	/*
-	|--------------------------------------------------------------------------
-	| Home Controller
-	|--------------------------------------------------------------------------
-	|
-	| This controller renders your application's "dashboard" for users that
-	| are authenticated. Of course, you are free to change or remove the
-	| controller as you wish. It is just here to get your app started!
-	|
-	*/
 
 	/**
 	 * Create a new controller instance.
@@ -33,12 +29,21 @@ class HomeController extends Controller {
 		return view('home');
 	}
 
+	/**
+	 * Show the application help page to the user.
+	 * 
+	 * @return Response
+	 */
 	public function showHelp(){
 
 	}
 
+	/**
+	 * Show the application 'Insufficient Privileges' page to the user.
+	 * 
+	 * @return Response
+	 */
 	public function showInsufficientPrivileges(){
-		
-	}
 
+	}
 }

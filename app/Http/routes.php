@@ -87,10 +87,10 @@ Route::group(array('before' => 'auth'), function(){
 		/**********************************************************/
 
 		//Route to view all spreadsheets
-		Route::get('spreadsheet/view', array('as' => 'getAllSpreadsheetsForSuperUser', 'uses' => 'ManageUsersController@showSpreadsheetsForSuperUser'));
+		Route::get('spreadsheet/view', array('as' => 'getAllSpreadsheetsForSuperUser', 'uses' => 'ManageSpreadsheetsController@showSpreadsheetsForSuperUser'));
 
 		//Route to process remove/close recons
-		Route::post('spreadsheet/remove', array('as' => 'doRemoveSpreadsheetForSuperUser', 'uses' => 'ManageUsersController@removeSpreadsheetForSuperUser'));
+		Route::post('spreadsheet/remove', array('as' => 'doRemoveSpreadsheetForSuperUser', 'uses' => 'ManageSpreadsheetsController@removeSpreadsheetForSuperUser'));
 	});
 
 	/**********************************************************/
@@ -118,10 +118,7 @@ Route::group(array('before' => 'auth'), function(){
 
 	//Route to view a specific spreadsheet
 	Route::get('spreadsheet/view/{item}', array('as' => 'getSpreadsheet', 'uses' => 'ManageSpreadsheetsController@showSpreadsheet'));
-
-	//Route to process update (add data to or modify existing data in) spreadsheet request
-	Route::post('spreadsheet/update/{item}', array('as' => 'doUpdateSpreadsheet', 'uses' => 'ManageSpreadsheetsController@updateSpreadsheet'));
-
+	
 	//Route to download spreadsheet
 	Route::post('spreadsheet/download/{item}', array('as' => 'downloadSpreadsheet', 'uses' => 'ManageSpreadsheetsController@downloadSpreadsheet'));
 
