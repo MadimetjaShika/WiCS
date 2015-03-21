@@ -6,10 +6,10 @@ WiCS allows users to specify spreadsheets, along with column headings and valida
 
 WiCS is a lightweight laravel application with an object-relational graph database on the back-end.
 
-### Version
+## Version
 1.0.2
 
-### Technologies
+## Technologies
 
 WiCS makes use of the following open source technologies:
 
@@ -18,7 +18,7 @@ WiCS makes use of the following open source technologies:
 * [Laravel Excel] - An eloquent laravel driver for importing and exporting Excel and CSV files.
 * And of course, all the good client side technologies :)
 
-### Development
+## Development
 
 Wish to contribute? Drop me an email! mmjshika@gmail.com
 
