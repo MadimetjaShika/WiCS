@@ -1,5 +1,7 @@
 <?php namespace WiCS\Helpers\UserHelpers;
 
+use GenericHelpers;
+
 /**
  * Defines and houses all functionality related to managing users.
  * Controllers should not define any logic, all user specific logic should be defined
@@ -30,7 +32,8 @@ class ManageUsersHelper{
 	 * @return Returns true if the user was successfully added to the database, else throws an 
 	 * exception with a descriptive error message.
 	 */
-	public function createUser($firstName, $lastName, $userName, $password, $email, $gender){
+	public function createUser($userObject){ //Revise this function definition
+	//public function createUser($firstName, $lastName, $userName, $password, $email, $gender){
 
 	}
 
@@ -79,7 +82,8 @@ class ManageUsersHelper{
 	 * @return Returns true if the user's information was successfully changed, else throws an 
 	 * exception with a descriptive error message.
 	 */
-	public function modifyUserDetails($userInstance, $firstName, $lastName, $userName, $email, $gender){
+	public function modifyUserDetails($userObject){ //Revise this function definition
+	//public function modifyUserDetails($userInstance, $firstName, $lastName, $userName, $email, $gender){
 
 	}
 
@@ -100,9 +104,9 @@ class ManageUsersHelper{
 	}
 
 	/**
-	 * Resets the users password to some randomly generated temporary password once the user's 
+	 * Resets the users password to some randomly generated 16 character temporary password once the user's 
 	 * answer has been validated correctly against the user's security question. An email is 
-	 * thereafter sent to the user's email account to give them the newly generated temporaru 
+	 * thereafter sent to the user's email account to give them the newly generated temporary 
 	 * password.
 	 * 
 	 * @param $userInstance An instance of the user whose password is to be reset.
@@ -112,7 +116,36 @@ class ManageUsersHelper{
 	 * @return Returns true if the user's password was successfully reset, else throws an exception
 	 * with a descriptive error message.
 	 */
-	public function resetUserPassword($userInstance, $answerToSecurityQuestion){
+	public function resetUserPasswordToRandomlyGeneratedTemporaryPassword($userInstance, $answerToSecurityQuestion){
+
+		if( validateUserAnswerToSecurityQuestion($userInstance, $answerToSecurityQuestion) == true ){
+			$randomlyGeneratedPassword = GenericHelpers::generateRandom16CharacterString();
+
+			//Complete rest of code...
+			
+
+			//sendMailToSingleReceipient($userInstance->email, InformativeMessages::getResetPasswordSubjectLine(), "");
+		}
+		else{
+			//Complete rest of code...
+		}
+
+		return true;
+
+	}
+
+	/**
+	 * Validated the given answer against the given user's security question answer.
+	 * 
+	 * @param $userInstance An instance of the user whose security question answer is being validated.
+	 * 
+	 * @param $answerToSecurityQuestion A string of the user's given answer to the security question.
+	 * 
+	 * @return Returns true if the answer to the security question matched the answer currently in the 
+	 * database against the user's security question answer, else returns an exception. Throws an exception
+	 * with a descriptive error message if the user instance does not exist or if anything else goes wrong.
+	 */
+	public function validateUserAnswerToSecurityQuestion($userInstance, $answerToSecurityQuestion){
 
 	}
 
@@ -139,7 +172,7 @@ class ManageUsersHelper{
 	 * @return Returns true if the user successfully invited to contribute to the spreadsheet, else
 	 * throws an exception with a descriptive error message.
 	 */
-	public function inviteExistingUserToContributeToSpreadsheet($userInstance, $spreadsheetInstance){
+	public function inviteExistingUserToContributeToSpreadsheet($userInstance, AbstractSpreadsheet $spreadsheetInstance){
 
 	}
 
@@ -156,7 +189,7 @@ class ManageUsersHelper{
 	 * @return Returns true if the user instance was successfully made an owner of the 
 	 * spreadsheet instance, else throws an exception with a descriptive error message.
 	 */
-	public function makeUserOwnerOfSpreadsheet($spreadsheetInstance, $userInstance){
+	public function makeUserOwnerOfSpreadsheet($userInstance, AbstractSpreadsheet $spreadsheetInstance){
 
 	}
 
@@ -174,7 +207,7 @@ class ManageUsersHelper{
 	 * @return Returns true if the user instance was successfully invited to become an owner of the 
 	 * spreadsheet instance, else throws an exception with a descriptive error message.
 	 */
-	public function inviteUserToBecomeNewOwnerOfSpreadsheet($spreadsheetInstance, $userInstance){
+	public function inviteUserToBecomeNewOwnerOfSpreadsheet($userInstance, AbstractSpreadsheet $spreadsheetInstance){
 
 	}
 
@@ -192,7 +225,7 @@ class ManageUsersHelper{
 	 * to the spreadsheet instacne, else throws an exception with a descriptive error
 	 * message.
 	 */
-	public function makeUserContributorToSpreadsheet($spreadsheetInstance, $userInstance){
+	public function makeUserContributorToSpreadsheet($userInstance, AbstractSpreadsheet $spreadsheetInstance){
 
 	}
 }

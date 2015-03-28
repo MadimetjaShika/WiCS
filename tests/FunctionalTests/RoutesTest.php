@@ -10,13 +10,13 @@ class RoutesTest extends TestCase {
 	 *  
 	 * @return void
 	 */
-	public function notSignedInWelcomePageTest(){
+	public function testNotSignedInWelcomePageRequest(){
 		//Check that there is currently no user logged in.
 		$this->assertEquals(false, Auth::check());
 
 		//Check accessibility of home page
-		$response = $this->call('GET', '/');
-		$this->assertEquals(200, $response->getStatusCode());
+		$this->call('GET', '/');
+		$this->assertResponseOk();
 	}
 
 	/**
@@ -24,30 +24,29 @@ class RoutesTest extends TestCase {
 	 * 
 	 * @return void
 	 */
-	public function signedInHomePageTest(){
+	public function testSignedInHomePageRequest(){
 		//Check that a user is currently logged in.
 		$this->assertEquals(true, Auth::check());
 
 		//Check accessibility of home page
-		$response = $this->call('GET', '/');
-		$this->assertEquals(200, $response->getStatusCode());
-	}
+		$this->call('GET', '/');
+		$this->assertResponseOk();	}
 
 	/**
 	 * Tests accessibility of the login page.
 	 * 
 	 * @return void
 	 */
-	public function logInPageRequestTest(){
+	public function testLogInPageRequest(){
 		//Test accessibility when the user is not signed in already.
 		$this->assertEquals(false, Auth::check());
-		$response = $this->call('GET', 'login');
-		$this->assertEquals(200, $response->getStatusCode());
+		$this->call('GET', 'login');
+		$this->assertResponseOk();
 
 		//Test accessibility when the user is already signed in.
 		$this->assertEquals(true, Auth::check());
-		$response = $this->call('GET', 'login');
-		$this->assertEquals(200, $response->getStatusCode());
+		$this->call('GET', 'login');
+		$this->assertResponseOk();
 	}
 
 	/**
@@ -55,7 +54,7 @@ class RoutesTest extends TestCase {
 	 * 
 	 * @return void
 	 */
-	public function doLoginRequestTest(){
+	public function testDoLoginRequest(){
 		$testUsername = "";
 		$testInvalidUsername = "";
 		$testPassword = "";
@@ -66,56 +65,56 @@ class RoutesTest extends TestCase {
 		/**************************************/
 		$this->assertEquals(false, Auth::check());
 
-		$response = $this->call('POST', 'doLogin');
-		$this->assertEquals(200, $response->getStatusCode());
+		$this->call('POST', 'doLogin');
+		$this->assertResponseOk();
 
 		/*********************************************************/
 		/**** Test With Invalid Username And Correct Password ****/
 		/*********************************************************/
 		$this->assertEquals(false, Auth::check());
 
-		$response = $this->call('POST', 'doLogin');
-		$this->assertEquals(400, $response->getStatusCode());
+		$this->call('POST', 'doLogin');
+		$this->assertResponseStatus(400);
 
 		/*********************************************************/
 		/**** Test With Invalid Password And Correct Username ****/
 		/*********************************************************/
 		$this->assertEquals(false, Auth::check());
 
-		$response = $this->call('POST', 'doLogin');
-		$this->assertEquals(400, $response->getStatusCode());
+		$this->call('POST', 'doLogin');
+		$this->assertResponseStatus(400);
 
 		/*********************************************************/
 		/**** Test With Invalid Username And Invalid Password ****/
 		/*********************************************************/
 		$this->assertEquals(false, Auth::check());
 
-		$response = $this->call('POST', 'doLogin');
-		$this->assertEquals(400, $response->getStatusCode());
+		$this->call('POST', 'doLogin');
+		$this->assertResponseStatus(400);
 
 		/*********************************************************/
 		/************* Test With SQL Injected Values *************/
 		/*********************************************************/
 		$this->assertEquals(false, Auth::check());
 
-		$response = $this->call('POST', 'doLogin');
-		$this->assertEquals(400, $response->getStatusCode());
+		$this->call('POST', 'doLogin');
+		$this->assertResponseStatus(400);
 	}
 
 	/**
 	 * [registerPageRequestTest description]
 	 * @return void
 	 */
-	public function registerPageRequestTest(){
+	public function testRegisterPageRequest(){
 		//Test accessibility when the user is not signed in already.
 		$this->assertEquals(false, Auth::check());
-		$response = $this->call('GET', 'register');
-		$this->assertEquals(200, $response->getStatusCode());
+		$this->call('GET', 'register');
+		$this->assertResponseOk();
 
 		//Test accessibility when the user is already signed in.
 		$this->assertEquals(true, Auth::check());
-		$response = $this->call('GET', 'register');
-		$this->assertEquals(200, $response->getStatusCode());
+		$this->call('GET', 'register');
+		$this->assertResponseOk();
 	}
 
 	/**
@@ -123,12 +122,12 @@ class RoutesTest extends TestCase {
 	 * 
 	 * @return void
 	 */
-	public function doRegisterUserTest(){
+	public function testDoRegisterUserRequest(){
 		//Ensure that no user is currently logged in.
 		$this->assertEquals(false, Auth::check());
 
-		$response = $this->call('POST', 'doRegister');
-		$this->assertEquals(200, $response->getStatusCode());
+		$this->call('POST', 'doRegister');
+		$this->assertResponseOk();
 
 		/*********************************************************/
 		/************* Test With Invalid User Input **************/
@@ -140,10 +139,10 @@ class RoutesTest extends TestCase {
 	 * 
 	 * @return void
 	 */
-	public function viewUserProfileTest(){
-		$response = $this->call('GET', 'showProfile');
+	public function testViewUserProfileRequest(){
+		$this->call('GET', 'showProfile');
 
-		$this->assertEquals(200, $response->getStatusCode());
+		$this->assertResponseOk();
 	}
 
 	/**
@@ -151,10 +150,10 @@ class RoutesTest extends TestCase {
 	 * 
 	 * @return void
 	 */
-	public function modifyUserProfileTest(){
-		$response = $this->call('GET', '');
+	public function testModifyUserProfileRequest(){
+		$this->call('GET', '');
 
-		$this->assertEquals(200, $response->getStatusCode());
+		$this->assertResponseOk();
 	}
 
 	/**
@@ -162,10 +161,10 @@ class RoutesTest extends TestCase {
 	 * 
 	 * @return void
 	 */
-	public function doRemoveSpreadsheetForSuperUserTest(){
-		$response = $this->call('GET', 'doRemoveSpreadsheetForSuperUser');
+	public function testDoRemoveSpreadsheetForSuperUserRequest(){
+		$this->call('GET', 'doRemoveSpreadsheetForSuperUser');
 
-		$this->assertEquals(200, $response->getStatusCode());
+		$this->assertResponseOk();
 	}
 
 	/**
@@ -173,10 +172,10 @@ class RoutesTest extends TestCase {
 	 * 
 	 * @return void
 	 */
-	public function showCreateSpreadsheetTest(){
-		$response = $this->call('GET', 'showCreateSpreadsheet');
+	public function testShowCreateSpreadsheetRequest(){
+		$this->call('GET', 'showCreateSpreadsheet');
 
-		$this->assertEquals(200, $response->getStatusCode());
+		$this->assertResponseOk();
 	}
 
 	/**
@@ -184,7 +183,7 @@ class RoutesTest extends TestCase {
 	 * 
 	 * @return void
 	 */
-	public function doCreateSpreadsheet(){
+	public function testDoCreateSpreadsheetRequest(){
 
 	}
 
@@ -193,10 +192,10 @@ class RoutesTest extends TestCase {
 	 * 
 	 * @return void
 	 */
-	public function getAllSpreadsheetsTest(){
-		$response = $this->call('GET', 'getAllSpreadsheets');
+	public function testGetAllSpreadsheetsRequest(){
+		$this->call('GET', 'getAllSpreadsheets');
 
-		$this->assertEquals(200, $response->getStatusCode());
+		$this->assertResponseOk();
 	}
 
 	/**
@@ -204,10 +203,10 @@ class RoutesTest extends TestCase {
 	 * 
 	 * @return void
 	 */
-	public function removeSpreadsheetTest(){
-		$response = $this->call('GET', 'doRemoveSpreadsheets');
+	public function testRemoveSpreadsheetRequest(){
+		$this->call('GET', 'doRemoveSpreadsheets');
 
-		$this->assertEquals(200, $response->getStatusCode());
+		$this->assertResponseOk();
 	}
 
 }

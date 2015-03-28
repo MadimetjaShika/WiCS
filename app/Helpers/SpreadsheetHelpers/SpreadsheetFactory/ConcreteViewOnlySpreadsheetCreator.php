@@ -8,19 +8,9 @@ class ConcreteViewOnlySpreadsheetCreator extends AbstractSpreadsheetCreator{
 	/**
 	 * Factory method to produce and return a new viewable (read-only) spreadsheet.
 	 * 
-	 * @param $_title The title of the spreadsheet to be created.
-	 * 
-	 * @param $_description The description of teh spreadsheet to be created.
-	 * 
-	 * @param $_owner A user instance of the owner of the spreadsheet.
-	 * 
-	 * @param $_creationDate The creation date of the spreadsheet.
-	 * 
-	 * @param $_lastModifiedDate The last modified date of the spreadsheet.
-	 *
-	 * @param $_validationRules This field MUST be null and ignored.
+	 * @param $_spreadsheetObject Spreadsheet Object encapsulating the spreadsheet details.
 	 */
-	public function FactoryMethod($_title, $_description, $_owner, $_creationDate, $_lastModifiedDate, $_validationRules) {
-        return new ViewOnlySpreadsheet($_title, $_description, $_owner, $_creationDate, $_lastModifiedDate);
+	public function FactoryMethod(SpreadsheetObject $_spreadsheetObject) {
+        return new ViewOnlySpreadsheet($_spreadsheetObject);
     }
 }

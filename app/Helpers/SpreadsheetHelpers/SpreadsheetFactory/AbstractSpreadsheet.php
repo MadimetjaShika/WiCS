@@ -7,54 +7,17 @@ abstract class AbstractSpreadsheet{
 	
 	//Member variables
 	/**
-	 * The title of the spreadsheet.
-	 * @var string
+	 * Spreadsheet Object encapsulating all the spreadsheet details.
 	 */
-	private $title;
-
-	/**
-	 * The description of the spreadsheet.
-	 * @var string
-	 */
-	private $description;
-
-	/**
-	 * A user instance of the owner of the spreadsheet.
-	 * @var User
-	 */
-	private $owner;
-
-	/**
-	 * The creation date of the spreadsheet.
-	 * @var date
-	 */
-	private $creationDate;
-
-	/**
-	 * The last modified date of the spreadsheet.
-	 * @var date
-	 */
-	private $lastModifiedDate;
+	private $spreadsheetObject;
 
 	/**
 	 * Abstract Spreadsheet constructor.
 	 * 
-	 * @param $_title The title of the spreadsheet to be created.
-	 * 
-	 * @param $_description The description of teh spreadsheet to be created.
-	 * 
-	 * @param $_owner A user instance of the owner of the spreadsheet.
-	 * 
-	 * @param $_creationDate The creation date of the spreadsheet.
-	 * 
-	 * @param $_lastModifiedDate The last modified date of the spreadsheet.
+	 * @param $_spreadsheetObject Spreadsheet Object encapsulating the spreadsheet details.
 	 */
-	public function __construct($_title, $_description, $_owner, $_creationDate, $_lastModifiedDate) {
-		$this->title = $_title;
-		$this->description = $_description;
-		$this->owner = $_owner;
-		$this->creationDate = $_creationDate;
-		$this->lastModifiedDate = $_lastModifiedDate;
+	public function __construct(SpreadsheetObject $_spreadsheetObject){
+		$this->spreadsheetObject = $_spreadsheetObject;
    	}
 
    	/**
@@ -64,7 +27,7 @@ abstract class AbstractSpreadsheet{
    	 * error message.
    	 */
 	public function getTitle(){
-		return $this->title;
+		return $this->spreadsheetObject->getTitle();
 	}
 
 	/**
@@ -74,7 +37,7 @@ abstract class AbstractSpreadsheet{
    	 * error message.
    	 */
 	public function getDescription(){
-		return $this->description;
+		return $this->spreadsheetObject->getDescription();
 	}
 
 	/**
@@ -84,7 +47,7 @@ abstract class AbstractSpreadsheet{
    	 * with a descriptive error message.
    	 */
 	public function getOwner(){
-		return $this->owner;
+		return $this->spreadsheetObject->getOwner();
 	}
 
 	/**
@@ -94,7 +57,7 @@ abstract class AbstractSpreadsheet{
    	 * error message.
    	 */
 	public function getCreationDate(){
-		return $this->creationDate;
+		return $this->spreadsheetObject->getCreationDate();
 	}
 
 	/**
@@ -104,6 +67,15 @@ abstract class AbstractSpreadsheet{
    	 * descriptive error message.
    	 */
 	public function getLastModifiedDate(){
-		return $this->lastModifiedDate;
+		return $this->spreadsheetObject->getLastModifiedDate();
+	}
+
+	/**
+	 * Getter for the spreadsheet validation rules.
+	 * 
+	 * @return JSON Object housing the spreadsheet validation rules.
+	 */
+	public function getValidationRulse(){
+		return $this->getValidationRules();
 	}
 }

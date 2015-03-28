@@ -9,24 +9,53 @@ class GenericHelpers{
 
 	//Member variables
 	//
-	
+
 	/**
-	 * Sends an email to the specified receipient(s) with the specified subject and body.
+	 * Sends an email to the receipient(s) specified in the mailObject, with the subject and 
+	 * body specified.
 	 * 
-	 * @param  $receipients An array or string containing the address of the receipient(s). If
-	 * there are multiple receipients, this will be indicated by the '$multipleReceipientsFlag' flag.
+	 * @param $mailObject An object encapsulating the details of the mail to be sent.
 	 * 
-	 * @param  $multipleReceipientsFlag A flag which is set to true if there are multiple receipients
-	 * in the $receipients variable, otherwise set to false if the is only one receipient.
-	 * 
-	 * @param  $subject The text to be set as the subject of the email to be sent.
-	 * 
-	 * @param  $body The text to be set as the body of the email to be sent.
-	 * 
-	 * @return Returns true if the email was successfully sent, else throws an exception with a 
-	 * descriptive error message if the email was unable to be sent successfully.
+	 * @return Returns true if the email was successfully sent, else throws an exception with
+	 * a descriptive error message if the email was unable to be sent successfully.
 	 */
-	public function sendMail($receipients, $multipleReceipientsFlag, $subject, $body){
+	public function sendMail(MailObject $mailObject){
+
+	}
+
+	/**
+	 * Generates a random clear text 8 character string.
+	 * 
+	 * @return Returns a randomly generated clear text 8 character string.
+	 */
+	public function generateRandom8CharacterString(){
+
+	}
+
+	/**
+	 * Generates a random clear text 16 character string.
+	 * 
+	 * @return Returns a randomly generated clear text 16 character string.
+	 */
+	public function generateRandom16CharacterString(){
+
+	}
+
+	/**
+	 * Generates a random clear text 32 character string.
+	 * 
+	 * @return Returns a randomly generated clear text 32 character string.
+	 */
+	public function generateRandom32CharacterString(){
+
+	}
+
+	/**
+	 * Generates a random clear text 64 character string.
+	 * 
+	 * @return Returns a randomly generated clear text 64 character string.
+	 */
+	public function generateRandom64CharacterString(){
 
 	}
 }

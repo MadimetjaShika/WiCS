@@ -58,7 +58,7 @@ class ManageSpreadsheetsHelper{
 	 *
 	 * @throws 
 	 */
-	public function getSpreadsheet($spreadsheetInstance){
+	public function getSpreadsheet(AbstractSpreadsheet $spreadsheetInstance){
 
 	}
 
@@ -73,7 +73,7 @@ class ManageSpreadsheetsHelper{
 	 *
 	 * @throws 
 	 */
-	public function deleteSpreadsheet($spreadsheetInstance){
+	public function deleteSpreadsheet(AbstractSpreadsheet $spreadsheetInstance){
 
 	}
 
@@ -98,7 +98,7 @@ class ManageSpreadsheetsHelper{
 	 *
 	 * @throws 
 	 */
-	public function mergeSpreadsheets($spreadsheetInstance1, $spreadsheetInstance2, $resultType){
+	public function mergeSpreadsheets(AbstractSpreadsheet $spreadsheetInstance1, AbstractSpreadsheet $spreadsheetInstance2, $resultType){
 
 	}
 
@@ -114,7 +114,7 @@ class ManageSpreadsheetsHelper{
 	 * @return Triggers the download widget for the user to download the spreadsheet, or throws an
 	 * exception if the spreadsheet does not exist in the database.
 	 */
-	public function downloadSpreadsheet($spreadsheetInstance){
+	public function downloadSpreadsheet(AbstractSpreadsheet $spreadsheetInstance){
 
 	}
 
@@ -127,7 +127,7 @@ class ManageSpreadsheetsHelper{
 	 * @return Returns true if the spreadsheet was successfull converted to PDF and if the download 
 	 * proceedure was successful, else throws an exception with a descriptive error message.
 	 */
-	public function createAndDownloadPDFVersionOfSpreadsheet($spreadsheetInstance){
+	public function createAndDownloadPDFVersionOfSpreadsheet(AbstractSpreadsheet $spreadsheetInstance){
 
 	}
 }

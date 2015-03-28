@@ -10,6 +10,7 @@
  * Accessible by all users (both guests and authenticated users). Some of the routes
  * will direct to the relevant page, depending on if the user is authenticated or not.
  */
+
 //Route to welcome page if user is not authenticated, else renders dashboard if user is
 //authenticated.
 Route::get('/', array('as' => 'index', 'uses' => 'HomeController@showIndex'));
@@ -23,12 +24,12 @@ Route::get('insufficientPrivileges', array('as' => 'insufficientPrivileges', 'us
 //Route to view a specific user's profile. The display will differ based on whether or not 
 //the requesting useris authenticated.
 Route::get('users/view/{item}', array('as' => 'getUserProfile', 'uses' =>'ManageUsersController@getUser'));
-/*
+
 //?????...
 Route::controllers([
 	'auth' => 'Auth\AuthController',
 	'password' => 'Auth\PasswordController',
-]);*/
+]);
 
 /**
  *************************************************************************

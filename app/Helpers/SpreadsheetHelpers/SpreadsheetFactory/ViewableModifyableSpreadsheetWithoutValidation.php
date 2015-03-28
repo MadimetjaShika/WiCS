@@ -11,17 +11,9 @@ class ViewableModifyableSpreadsheetWithoutValidation extends AbstractSpreadsheet
 	/**
 	 * View Only Spreadsheet constructor.
 	 * 
-	 * @param $_title The title of the spreadsheet to be created.
-	 * 
-	 * @param $_description The description of teh spreadsheet to be created.
-	 * 
-	 * @param $_owner A user instance of the owner of the spreadsheet.
-	 * 
-	 * @param $_creationDate The creation date of the spreadsheet.
-	 * 
-	 * @param $_lastModifiedDate The last modified date of the spreadsheet.
+	 * @param $_spreadsheetObject Spreadsheet Object encapsulating the spreadsheet details.
 	 */
-	public function __construct($_title, $_description, $_owner, $_creationDate, $_lastModifiedDate) {
-       parent::__construct($_title, $_description, $_owner, $_creationDate, $_lastModifiedDate);
+	public function __construct(SpreadsheetObject $_spreadsheetObject) {
+       parent::__construct($_spreadsheetObject);
    }
 }
