@@ -40,6 +40,12 @@ class HelperServiceProvider extends ServiceProvider {
 	    foreach (glob(app_path().'/Helpers/SpreadsheetHelpers/SpreadsheetFactory/*.php') as $filename){
 	        require_once($filename);
 	    }
+
+	    //Require testing helpers
+	    require_once("tests/TestHelpers/TestsHelper.php");
+	    /*foreach ('tests/TestHelpers/*.php' as $filename){
+	        require_once($filename);
+	    }*/
 	}
 
 }

@@ -6,207 +6,351 @@
 class RoutesTest extends TestCase {
 
 	/**
-	 * Tests the accessibility of the welcome page given the user is not singed in.
-	 *  
+	 * Tests the accessibility of the welcome page when the user is unauthenticated.
+	 * 
 	 * @return void
 	 */
-	public function testNotSignedInWelcomePageRequest(){
-		//Check that there is currently no user logged in.
-		$this->assertEquals(false, Auth::check());
+	public function testWelcomePageRequestUnauthenticated(){
+		$this->checkIfUserLoggedInAndlogCurrentUserOut();
 
-		//Check accessibility of home page
 		$this->call('GET', '/');
 		$this->assertResponseOk();
 	}
 
 	/**
-	 * Tests home page accessibility when user is signed in.
+	 * Tests the accessibility of the welcome page when the user is authenticated.
 	 * 
 	 * @return void
 	 */
-	public function testSignedInHomePageRequest(){
-		//Check that a user is currently logged in.
+	public function testWelcomePageRequestAuthenticated(){
+		$this->checkIfUserLoggedInAndlogCurrentUserOut();
+		$this->logTestUserIn();
 		$this->assertEquals(true, Auth::check());
 
-		//Check accessibility of home page
 		$this->call('GET', '/');
-		$this->assertResponseOk();	}
-
-	/**
-	 * Tests accessibility of the login page.
-	 * 
-	 * @return void
-	 */
-	public function testLogInPageRequest(){
-		//Test accessibility when the user is not signed in already.
-		$this->assertEquals(false, Auth::check());
-		$this->call('GET', 'login');
 		$this->assertResponseOk();
 
-		//Test accessibility when the user is already signed in.
-		$this->assertEquals(true, Auth::check());
+		$this->checkIfUserLoggedInAndlogCurrentUserOut();
+	}
+
+	/**
+	 * Tests the accessibility of the login page when the user is unauthenticated.
+	 * 
+	 * @return void
+	 */
+	public function testLogInPageRequestUnauthenticated(){
+		$this->checkIfUserLoggedInAndlogCurrentUserOut();
+
 		$this->call('GET', 'login');
 		$this->assertResponseOk();
 	}
 
 	/**
-	 * Test if the doLogin post requests works as it should.
+	 * Tests the accessibility of the login page when the user is authenticated.
 	 * 
 	 * @return void
 	 */
-	public function testDoLoginRequest(){
-		$testUsername = "";
-		$testInvalidUsername = "";
-		$testPassword = "";
-		$testInvalidPassword = "";
+	public function testLogInPageRequestAuthenticated(){
+		$this->checkIfUserLoggedInAndlogCurrentUserOut();
+		$this->logTestUserIn();
+		$this->assertEquals(true, Auth::check());
+
+		$this->call('GET', 'login');
+		$this->assertResponseStatus(401);
+
+		$this->checkIfUserLoggedInAndlogCurrentUserOut();
+	}
+
+	/**
+	 * Tests the functionality of the 'doLogin' request when the user is unauthenticated.
+	 * i.e. tests if an unauthenticated user can be logged-into the application.
+	 * 
+	 * @return void
+	 */
+	public function testDoLoginRequestUnauthenticated(){
+		$validTestUserName = $this->getTestUserName();
+		$validTestUserPassword = $this->getTestUserPassword();
+		$invalidUserName = ""; //Get randomly generated 64 character string.
+		$invalidUserPassword = ""; //Get randomly generated 64 character string.
+		$sqlInjectedUserName = "";
+		$sqlInjectedUserPassword = "";
+
+		$this->checkIfUserLoggedInAndlogCurrentUserOut();
 
 		/**************************************/
 		/**** Test With Valid Creadentials ****/
 		/**************************************/
-		$this->assertEquals(false, Auth::check());
-
-		$this->call('POST', 'doLogin');
+		$this->call('POST', 'login', ['userName' => $validTestUserName, 'password' => $validTestUserPassword]);
 		$this->assertResponseOk();
+		$this->checkIfUserLoggedInAndlogCurrentUserOut();
 
 		/*********************************************************/
-		/**** Test With Invalid Username And Correct Password ****/
+		/**** Test With Invalid Username And Valid Password ****/
 		/*********************************************************/
-		$this->assertEquals(false, Auth::check());
-
-		$this->call('POST', 'doLogin');
+		$this->call('POST', 'login', ['userName' => $invalidUserName, 'password' => $validTestUserPassword]);
 		$this->assertResponseStatus(400);
+		$this->checkIfUserLoggedInAndlogCurrentUserOut();
 
 		/*********************************************************/
-		/**** Test With Invalid Password And Correct Username ****/
+		/**** Test With Invalid Password And Valid Username ****/
 		/*********************************************************/
-		$this->assertEquals(false, Auth::check());
-
-		$this->call('POST', 'doLogin');
+		$this->call('POST', 'login', ['userName' => $validTestUserName, 'password' => $invalidUserPassword]);
 		$this->assertResponseStatus(400);
+		$this->checkIfUserLoggedInAndlogCurrentUserOut();
 
 		/*********************************************************/
 		/**** Test With Invalid Username And Invalid Password ****/
 		/*********************************************************/
-		$this->assertEquals(false, Auth::check());
-
-		$this->call('POST', 'doLogin');
+		$this->call('POST', 'login', ['userName' => $invalidUserName, 'password' => $invalidUserPassword]);
 		$this->assertResponseStatus(400);
+		$this->checkIfUserLoggedInAndlogCurrentUserOut();
 
 		/*********************************************************/
 		/************* Test With SQL Injected Values *************/
 		/*********************************************************/
-		$this->assertEquals(false, Auth::check());
-
-		$this->call('POST', 'doLogin');
+		$this->call('POST', 'login', ['userName' => $sqlInjectedUserName, 'password' => $sqlInjectedUserPassword]);
 		$this->assertResponseStatus(400);
+		$this->checkIfUserLoggedInAndlogCurrentUserOut();
 	}
 
 	/**
-	 * [registerPageRequestTest description]
+	 * Tests the functionality of the 'doLogin' request when the user is authenticated.
+	 * An authenticated user should not be able to call this request, i.e. request should
+	 * fail if the user is logged-in
+	 * 
 	 * @return void
 	 */
-	public function testRegisterPageRequest(){
-		//Test accessibility when the user is not signed in already.
-		$this->assertEquals(false, Auth::check());
-		$this->call('GET', 'register');
-		$this->assertResponseOk();
-
-		//Test accessibility when the user is already signed in.
+	public function testDoLoginRequestAuthenticated(){
+		$this->checkIfUserLoggedInAndlogCurrentUserOut();
+		$this->logTestUserIn();
 		$this->assertEquals(true, Auth::check());
+
+		$this->call('POST', 'login', ['userName' => 'testProfile', 'password' => 'testPassword']);
+		$this->assertResponseStatus(403);
+
+		$this->checkIfUserLoggedInAndlogCurrentUserOut();
+	}
+
+	/**
+	 * Tests accessibility to the register page for an unauthenticated user request.
+	 * 
+	 * @return void
+	 */
+	public function testRegisterPageRequestUnauthenticated(){
+		$this->checkIfUserLoggedInAndlogCurrentUserOut();
+
 		$this->call('GET', 'register');
 		$this->assertResponseOk();
 	}
 
 	/**
-	 * Tests register page accessibility when user not signed in.
+	 * Tests accessibility to the register page for an authenticated user request.
 	 * 
 	 * @return void
 	 */
-	public function testDoRegisterUserRequest(){
-		//Ensure that no user is currently logged in.
-		$this->assertEquals(false, Auth::check());
+	public function testRegisterPageRequestAuthenticated(){
+		$this->checkIfUserLoggedInAndlogCurrentUserOut();
+		$this->logTestUserIn();
+		$this->assertEquals(true, Auth::check());
 
-		$this->call('POST', 'doRegister');
-		$this->assertResponseOk();
+		$this->call('GET', 'register');
+		$this->assertResponseStatus(401);
 
-		/*********************************************************/
-		/************* Test With Invalid User Input **************/
-		/*********************************************************/
+		$this->checkIfUserLoggedInAndlogCurrentUserOut();
 	}
 
 	/**
-	 * Tests user view profile page accessibility.
+	 * Tests if an unauthenticated user can register a new user on the application. If a new user
+	 * is successfully registered, the function will thereafter remove the newly created user 
+	 * from the database.
 	 * 
 	 * @return void
 	 */
-	public function testViewUserProfileRequest(){
-		$this->call('GET', 'showProfile');
-
-		$this->assertResponseOk();
-	}
-
-	/**
-	 * Tests modify user page accessibility.
-	 * 
-	 * @return void
-	 */
-	public function testModifyUserProfileRequest(){
-		$this->call('GET', '');
-
-		$this->assertResponseOk();
-	}
-
-	/**
-	 * Tests remove user page accessibility.
-	 * 
-	 * @return void
-	 */
-	public function testDoRemoveSpreadsheetForSuperUserRequest(){
-		$this->call('GET', 'doRemoveSpreadsheetForSuperUser');
-
-		$this->assertResponseOk();
-	}
-
-	/**
-	 * Tests create spreadsheet page accessibility.
-	 * 
-	 * @return void
-	 */
-	public function testShowCreateSpreadsheetRequest(){
-		$this->call('GET', 'showCreateSpreadsheet');
-
-		$this->assertResponseOk();
-	}
-
-	/**
-	 * Test the route to process the reqeust to create a spreadsheet.
-	 * 
-	 * @return void
-	 */
-	public function testDoCreateSpreadsheetRequest(){
+	public function testDoRegisterRequestUnauthenticated(){
 
 	}
 
 	/**
-	 * Tests view spreadsheet page accessibility.
+	 * Tests if an authenticated user can register a new user on the application. 
+	 * An already authenticated user should not be able to register a user onto the application.
 	 * 
 	 * @return void
 	 */
-	public function testGetAllSpreadsheetsRequest(){
-		$this->call('GET', 'getAllSpreadsheets');
+	public function testDoRegisterRequestAuthenticated(){
+		$this->checkIfUserLoggedInAndlogCurrentUserOut();
+		$this->logTestUserIn();
+		$this->assertEquals(true, Auth::check());
 
+		$this->call('POST', 'register');
+		$this->assertResponseStatus(401);
+
+		$this->checkIfUserLoggedInAndlogCurrentUserOut();
+	}
+
+	/**
+	 * Tests if an unauthenticated user can view the profile of a user on the application.
+	 * 
+	 * @return void
+	 */
+	public function testViewUserProfileRequestUnauthenticated(){
+		$this->checkIfUserLoggedInAndlogCurrentUserOut();
+
+		$this->call('GET', 'users/view/TestProfile');
 		$this->assertResponseOk();
 	}
 
 	/**
-	 * Tests remove spreadsheet page accessibility..
+	 * Tests if an authenticated user can view the profile of a user on the application.
 	 * 
 	 * @return void
 	 */
-	public function testRemoveSpreadsheetRequest(){
-		$this->call('GET', 'doRemoveSpreadsheets');
+	public function testViewUserProfileRequestAuthenticated(){
+		$this->checkIfUserLoggedInAndlogCurrentUserOut();
+		$this->logTestUserIn();
+		$this->assertEquals(true, Auth::check());
 
+		$this->call('GET', 'users/view/TestProfile');
 		$this->assertResponseOk();
+
+		$this->checkIfUserLoggedInAndlogCurrentUserOut();
 	}
 
+	/**
+	 * Tests if an unauthenticated user can view the modify user profile page.
+	 * An unauthenticated user should not be able to view his/her modify profile page.
+	 * 
+	 * @return void
+	 */
+	public function testModifyUserProfileRequestUnauthenticated(){
+
+	}
+
+	/**
+	 * Tests if an authenticated user can view the modify user profile page.
+	 * 
+	 * @return void
+	 */
+	public function testModifyUserProfileRequestAuthenticated(){
+
+	}
+
+	/**
+	 * Test if an unauthenticated user can modify his/her profile.
+	 * An unauthenticated user should NOT be able to modify their profile.
+	 * 
+	 * @return void
+	 */
+	public function testDoModifyUserProfileRequestUnauthenticated(){
+
+	}
+
+	/**
+	 * Test if an authenticated user can modify his/her profile.
+	 * 
+	 * @return void
+	 */
+	public function testDoModifyUserProfileRequestAuthenticated(){
+
+	}
+
+	/**
+	 * Tests if an unauthenticated user can execute a request to remove an existing
+	 * user from the application.
+	 * An unauthenticated user should not be able to remove any existing user from 
+	 * the application.
+	 * 
+	 * @return void
+	 */
+	public function testDoRemoveSpreadsheetForSuperUserRequestUnauthenticated(){
+
+	}
+
+	/**
+	 * Tests if only an authenticated super user user can execute a request to remove an existing
+	 * user from the application.
+	 * 
+	 * @return void
+	 */
+	public function testDoRemoveSpreadsheetForSuperUserRequestAuthenticated(){
+
+	}
+
+	/**
+	 * Tests if an unauthenticated user can create a spreadsheet on the application.
+	 * An unauthenticated user should not be able to create a spreadsheet on the application.
+	 * 
+	 * @return void
+	 */
+	public function testShowCreateSpreadsheetRequestUnauthenticated(){
+
+	}
+
+	/**
+	 * Tests if an authenticated user can create a spreadsheet on the application.
+	 * 
+	 * @return void
+	 */
+	public function testShowCreateSpreadsheetRequestAuthenticated(){
+
+	}
+
+	/**
+	 * Tests if an unauthenticated user can execute a do create spreadsheet request.
+	 * An unauthenticated user should NOT be able to create a spreadsheet on the application.
+	 * 
+	 * @return void
+	 */
+	public function testDoCreateSpreadsheetRequestUnauthenticated(){
+
+	}
+
+	/**
+	 * Tests if an authenticated user can execute a do create spreadsheet request.
+	 * 
+	 * @return void
+	 */
+	public function testDoCreateSpreadsheetRequestAuthenticated(){
+
+	}
+
+	/**
+	 * Tests if an unauthenticated user can execute a request to get all spreadsheets
+	 * authored by a user on the application.
+	 * An unauthenticated user should NOT be able to execute this request.
+	 * 
+	 * @return void
+	 */
+	public function testGetAllSpreadsheetsRequestUnauthenticated(){
+
+	}
+
+	/**
+	 * Tests if an authenticated user can execute a request to get all spreadsheets
+	 * authored by him/her on the application.
+	 * 
+	 * @return void
+	 */
+	public function testGetAllSpreadsheetsRequestAuthenticated(){
+
+	} 
+
+	/**
+	 * Tests if an unauthenticated user can remove a spreadsheet authored by an existing user
+	 * on the application.
+	 * An unauthenticated user should NOT be able to remove any spreadsheets on the application.
+	 * 
+	 * @return void
+	 */
+	public function testRemoveSpreadsheetRequestUnauthenticated(){
+
+	}
+
+	/**
+	 * Tests if an authenticated user can remove a spreadsheet authored by him/her on the application.
+	 * 
+	 * @return void
+	 */
+	public function testRemoveSpreadsheetRequestAuthenticated(){
+
+	}
 }

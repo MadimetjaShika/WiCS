@@ -16,4 +16,26 @@ class TestCase extends Illuminate\Foundation\Testing\TestCase {
 		return $app;
 	}
 
+	/****************************************************/
+	/*************** HELPER FUNCTIONALITY ***************/
+	/****************************************************/
+	private $testUserName = "testProfile";
+	private $testUserPassword = "testPassword";
+
+	public function logTestUserIn(){
+		$this->call('POST', 'login', ['userName' => $this->getTestUserName(), 'password' => $this->getTestUserPassword()]);
+	}
+
+	public function checkIfUserLoggedInAndlogCurrentUserOut(){
+		if( Auth::check() )
+			$this->call('GET', 'logout');
+	}
+
+	public function getTestUserName(){
+		return $this->testUserName;
+	}
+
+	public function getTestUserPassword(){
+		return $this->testUserPassword;
+	}
 }
