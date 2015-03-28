@@ -1,13 +1,23 @@
 <?php
 
+use WiCS\Helpers\GenericHelpers\InformativeMessages;
+use WiCS\Helpers\GenericHelpers\ErrorMessages;
+use WiCS\Helpers\GenericHelpers\WarningMessages;
+
 /**
  * Functional tests for all error, warning and informative messages used in the application.
  */
 class MessagesFunctionalTest extends TestCase {
 
-	private $informativeMessages = new InformativeMessages();
-	private $errorMessages = new ErrorMessages();
-	private $warningMessages  new WarningMessages();
+	private $informativeMessages;
+	private $errorMessages;
+	private $warningMessages;
+
+	public function __construct(){
+		$this->informativeMessages = new InformativeMessages();
+		$this->errorMessages = new ErrorMessages();
+		$this->warningMessages = new WarningMessages();
+	}
 
 	/**
 	 * Tests if the 'unable to send email' error message returned by the global error message

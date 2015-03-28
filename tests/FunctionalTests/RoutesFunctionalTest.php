@@ -62,52 +62,86 @@ class RoutesFunctionalTest extends TestCase {
 	}
 
 	/**
-	 * Tests the functionality of the 'doLogin' request when the user is unauthenticated.
-	 * i.e. tests if an unauthenticated user can be logged-into the application.
+	 * Tests the functionality of the 'doLogin' request when the user is unauthenticated and 
+	 * the user provides valid login credentials.
 	 * 
 	 * @return void
 	 */
-	public function testDoLoginRequestUnauthenticated(){
+	public function testDoLoginRequestWithValidUsernameAndValidPasswordUnauthenticated(){
 		$validTestUserName = $this->getTestUserName();
 		$validTestUserPassword = $this->getTestUserPassword();
+
+		$this->checkIfUserLoggedInAndlogCurrentUserOut();
+
+		$this->call('POST', 'login', ['userName' => $validTestUserName, 'password' => $validTestUserPassword]);
+		$this->assertResponseOk();
+		$this->checkIfUserLoggedInAndlogCurrentUserOut();
+		
+	}
+
+	/**
+	 * Tests the functionality of the 'doLogin' request when the user is unauthenticated and 
+	 * the user provides an invalid user name and a valid password (i.e. a password existing in the database).
+	 * 
+	 * @return void
+	 */
+	public function testDoLoginRequestWithInvalidUsernameAndValidPasswordUnauthenticated(){
+		$validTestUserPassword = $this->getTestUserPassword();
+		$invalidUserName = ""; //Get randomly generated 64 character string.
+
+		$this->checkIfUserLoggedInAndlogCurrentUserOut();
+
+		$this->call('POST', 'login', ['userName' => $invalidUserName, 'password' => $validTestUserPassword]);
+		$this->assertResponseStatus(400);
+		$this->checkIfUserLoggedInAndlogCurrentUserOut();
+	}
+
+	/**
+	 * Tests the functionality of the 'doLogin' request when the user is unauthenticated and 
+	 * the user provides a valid user name and an ivalid password.
+	 * 
+	 * @return void
+	 */
+	public function testDoLoginRequestWithValidUsernameAndInvalidPasswordUnauthenticated(){
+		$validTestUserName = $this->getTestUserName();
+		$invalidUserPassword = ""; //Get randomly generated 64 character string.
+
+		$this->checkIfUserLoggedInAndlogCurrentUserOut();
+
+		$this->call('POST', 'login', ['userName' => $validTestUserName, 'password' => $invalidUserPassword]);
+		$this->assertResponseStatus(400);
+		$this->checkIfUserLoggedInAndlogCurrentUserOut();
+	}
+
+	/**
+	 * Tests the functionality of the 'doLogin' request when the user is unauthenticated and 
+	 * the user provides invalid login credentials (invalid user name and invalid password).
+	 * 
+	 * @return void
+	 */
+	public function testDoLoginRequestWithInvalidUsernameAndInvalidPasswordUnauthenticated(){
 		$invalidUserName = ""; //Get randomly generated 64 character string.
 		$invalidUserPassword = ""; //Get randomly generated 64 character string.
+
+		$this->checkIfUserLoggedInAndlogCurrentUserOut();
+
+		$this->call('POST', 'login', ['userName' => $invalidUserName, 'password' => $invalidUserPassword]);
+		$this->assertResponseStatus(400);
+		$this->checkIfUserLoggedInAndlogCurrentUserOut();
+	}
+
+	/**
+	 * Tests the functionality of the 'doLogin' request when the user is unauthenticated and 
+	 * the user provides SQL Injection values in the user name and password fields.
+	 * 
+	 * @return void
+	 */
+	public function testDoLoginRequestWithSQLInjectedValuesUnauthenticated(){
 		$sqlInjectedUserName = "";
 		$sqlInjectedUserPassword = "";
 
 		$this->checkIfUserLoggedInAndlogCurrentUserOut();
 
-		/**************************************/
-		/**** Test With Valid Creadentials ****/
-		/**************************************/
-		$this->call('POST', 'login', ['userName' => $validTestUserName, 'password' => $validTestUserPassword]);
-		$this->assertResponseOk();
-		$this->checkIfUserLoggedInAndlogCurrentUserOut();
-
-		/*********************************************************/
-		/**** Test With Invalid Username And Valid Password ****/
-		/*********************************************************/
-		$this->call('POST', 'login', ['userName' => $invalidUserName, 'password' => $validTestUserPassword]);
-		$this->assertResponseStatus(400);
-		$this->checkIfUserLoggedInAndlogCurrentUserOut();
-
-		/*********************************************************/
-		/**** Test With Invalid Password And Valid Username ****/
-		/*********************************************************/
-		$this->call('POST', 'login', ['userName' => $validTestUserName, 'password' => $invalidUserPassword]);
-		$this->assertResponseStatus(400);
-		$this->checkIfUserLoggedInAndlogCurrentUserOut();
-
-		/*********************************************************/
-		/**** Test With Invalid Username And Invalid Password ****/
-		/*********************************************************/
-		$this->call('POST', 'login', ['userName' => $invalidUserName, 'password' => $invalidUserPassword]);
-		$this->assertResponseStatus(400);
-		$this->checkIfUserLoggedInAndlogCurrentUserOut();
-
-		/*********************************************************/
-		/************* Test With SQL Injected Values *************/
-		/*********************************************************/
 		$this->call('POST', 'login', ['userName' => $sqlInjectedUserName, 'password' => $sqlInjectedUserPassword]);
 		$this->assertResponseStatus(400);
 		$this->checkIfUserLoggedInAndlogCurrentUserOut();
@@ -167,7 +201,7 @@ class RoutesFunctionalTest extends TestCase {
 	 * @return void
 	 */
 	public function testDoRegisterRequestUnauthenticated(){
-		
+
 	}
 
 	/**
@@ -222,7 +256,7 @@ class RoutesFunctionalTest extends TestCase {
 	 * @return void
 	 */
 	public function testModifyUserProfileRequestUnauthenticated(){
-		
+
 	}
 
 	/**
