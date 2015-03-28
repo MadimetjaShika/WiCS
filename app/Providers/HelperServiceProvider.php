@@ -26,6 +26,11 @@ class HelperServiceProvider extends ServiceProvider {
 	        require_once($filename);
 	    }
 
+	    //Require message helpers
+		foreach (glob(app_path().'/Helpers/MessageHelpers/*.php') as $filename){
+	        require_once($filename);
+	    }
+
 	    //Require User Helpers
 	    foreach (glob(app_path().'/Helpers/UserHelpers/*.php') as $filename){
 	        require_once($filename);
