@@ -3,7 +3,7 @@
 /**
  * Functional tests for all routes used in the application.
  */
-class RoutesTest extends TestCase {
+class RoutesFunctionalTest extends TestCase {
 
 	/**
 	 * Tests the accessibility of the welcome page when the user is unauthenticated.
@@ -167,7 +167,7 @@ class RoutesTest extends TestCase {
 	 * @return void
 	 */
 	public function testDoRegisterRequestUnauthenticated(){
-
+		
 	}
 
 	/**
@@ -222,7 +222,7 @@ class RoutesTest extends TestCase {
 	 * @return void
 	 */
 	public function testModifyUserProfileRequestUnauthenticated(){
-
+		
 	}
 
 	/**
@@ -231,7 +231,14 @@ class RoutesTest extends TestCase {
 	 * @return void
 	 */
 	public function testModifyUserProfileRequestAuthenticated(){
+		$this->checkIfUserLoggedInAndlogCurrentUserOut();
+		$this->logTestUserIn();
+		$this->assertEquals(true, Auth::check());
 
+		$this->call('GET', 'users/view/TestProfile');
+		$this->assertResponseOk();
+
+		$this->checkIfUserLoggedInAndlogCurrentUserOut();
 	}
 
 	/**
