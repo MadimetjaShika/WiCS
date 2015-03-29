@@ -9,16 +9,6 @@ use WiCS\Helpers\GenericHelpers\WarningMessages;
  */
 class MessagesFunctionalTest extends TestCase {
 
-	private $informativeMessages;
-	private $errorMessages;
-	private $warningMessages;
-
-	public function __construct(){
-		$this->informativeMessages = new InformativeMessages();
-		$this->errorMessages = new ErrorMessages();
-		$this->warningMessages = new WarningMessages();
-	}
-
 	/**
 	 * Tests if the 'unable to send email' error message returned by the global error message
 	 * function is as expected and as defined in documentation.
@@ -26,7 +16,8 @@ class MessagesFunctionalTest extends TestCase {
 	 * @return void
 	 */
 	public function testErrorMessageGetUnableToSendMailToIntendedReceipient(){
-		$this->assertEquals($this->errorMessages->getUnableToSendMailToIntendedReceipient(), "Please note that the email could not be delievered to the intended receipient.");
+		$errorMessages = new ErrorMessages();
+		$this->assertEquals("Please note that the email could not be delievered to the intended receipient.", $errorMessages->getUnableToSendMailToIntendedReceipient());
 	}
 	
 	/**
@@ -36,6 +27,7 @@ class MessagesFunctionalTest extends TestCase {
 	 * @return void
 	 */
 	public function testInformativeMessageGetResetPasswordSubjectLine(){
-		$this->assertEquals($this->informativeMessages->getResetPasswordSubjectLine(), "WiCS Password Reset");
+		$informativeMessages = new InformativeMessages();
+		$this->assertEquals("WiCS Password Reset", $informativeMessages->getResetPasswordSubjectLine());
 	}
 }
