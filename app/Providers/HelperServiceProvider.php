@@ -26,6 +26,11 @@ class HelperServiceProvider extends ServiceProvider {
 	        require_once($filename);
 	    }
 
+	    //Require message helpers
+		foreach (glob(app_path().'/Helpers/MessageHelpers/*.php') as $filename){
+	        require_once($filename);
+	    }
+
 	    //Require User Helpers
 	    foreach (glob(app_path().'/Helpers/UserHelpers/*.php') as $filename){
 	        require_once($filename);
@@ -40,6 +45,12 @@ class HelperServiceProvider extends ServiceProvider {
 	    foreach (glob(app_path().'/Helpers/SpreadsheetHelpers/SpreadsheetFactory/*.php') as $filename){
 	        require_once($filename);
 	    }
+
+	    //Require testing helpers
+	    //require_once("tests/TestHelpers/TestsHelper.php");
+	    /*foreach ('tests/TestHelpers/*.php' as $filename){
+	        require_once($filename);
+	    }*/
 	}
 
 }
