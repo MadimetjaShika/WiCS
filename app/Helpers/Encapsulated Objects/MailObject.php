@@ -6,11 +6,16 @@
 class MailObject{
 
 	//Member Variables
-	private array $receipientArray = array();
+	private $receipientArray = array();
+	private $attachementsArray = array();
+	private $parametersArray = array();
+	private $sender = "WiCS";
 	private $subject;
 	private $body;
 
 	public function __construct(){
+		//Prepare default attachments for every mail (WiCS logo, etc...)
+		
 	}
 
 	/**
@@ -20,6 +25,33 @@ class MailObject{
 	 */
 	public function getReceipients(){
 		return $this->receipientArray;
+	}
+
+	/**
+	 * Returns the attachments specified in the attachments array.
+	 * 
+	 * @return void
+	 */
+	public function getAttachments(){
+		return $this->attachementsArray;
+	}
+
+	/**
+	 * Returns the parameters of the email.
+	 * 
+	 * @return void
+	 */
+	public function getParameters(){
+		return $this->parametersArray;
+	}
+
+	/**
+	 * Returns the sender of the email.
+	 * 
+	 * @return void
+	 */
+	public function getSender(){
+		return $this->sender;
 	}
 
 	/**
@@ -41,12 +73,42 @@ class MailObject{
 	}
 
 	/**
-	 * Adds a receipient to the list of receipients in the object.
+	 * Adds a receipient to the list of receipients in the email.
 	 * 
 	 * @param $address A string value of the address to add to the list of receipient addresses.
 	 */
 	public function addReceipient($address){
-		array_push($this->$receipientArray, $address);
+		array_push($this->receipientArray, $address);
+	}
+
+	/**
+	 * Adds an attachments to the list of attachements in the email.
+	 * 
+	 * @param $attachment The new attachement to be appended onto the existing attachments.
+	 */
+	public function addAttachement($attachment){
+		array_push($this->attachementsArray, $attachment);
+	}
+
+	/**
+	 * Adds a new parameter to the email paraneters.
+	 * 
+	 * @param $key The key of the new parameter
+	 * 
+	 * @param $value The value of the new parameter
+	 */
+	public function addParameters($key, $value){
+		$this->attachementsArray[$key][] = $value;
+		//array_push($this->attachementsArray, $attachment);
+	}
+
+	/**
+	 * Sets the sender of the email.
+	 * 
+	 * @param void
+	 */
+	public function setSender($_sender){
+		$this->sender = $_sender;
 	}
 
 	/**

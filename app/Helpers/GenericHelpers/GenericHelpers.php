@@ -8,7 +8,7 @@
 class GenericHelpers{
 
 	//Member variables
-	//
+	$randomStringCharacters = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ,./?!_-&#$%*";
 
 	/**
 	 * Sends an email to the receipient(s) specified in the mailObject, with the subject and 
@@ -20,7 +20,36 @@ class GenericHelpers{
 	 * a descriptive error message if the email was unable to be sent successfully.
 	 */
 	public function sendMail(MailObject $mailObject){
+		foreach ($mailObject->getReceipients() as $receipient) {
+			Mail::send($mailObject->getView(), $mailObject->getParameters(), function($message){
+				$message->from($mailObject->getSender());
+				$message->to($receipient)->subject($mailObject->getSubject());
+				foreach ($mailObject->getAttachments as $attachment) {
+					$message->attach($attachment);
+				}
+			});
+		}
+	}
 
+	/**
+	 * Queues an email for sending to the receipient(s) specified in the mailObject, 
+	 * with the subject and body specified.
+	 * 
+	 * @param $mailObject An object encapsulating the details of the mail to be sent.
+	 * 
+	 * @return Returns true if the email was successfully sent, else throws an exception with
+	 * a descriptive error message if the email was unable to be sent successfully.
+	 */
+	public function sendQueuedMail(MailObject $mailObject){
+		foreach ($mailObject->getReceipients() as $receipient) {
+			Mail::queue($mailObject->getView(), $mailObject->getParameters(), function($message){
+				$message->from($mailObject->getSender());
+				$message->to($receipient)->subject($mailObject->getSubject());
+				foreach ($mailObject->getAttachments as $attachment) {
+					$message->attach($attachment);
+				}
+			});
+		}
 	}
 
 	/**
@@ -29,7 +58,7 @@ class GenericHelpers{
 	 * @return Returns a randomly generated clear text 8 character string.
 	 */
 	public function generateRandom8CharacterString(){
-
+	    return generateRandomString(8);
 	}
 
 	/**
@@ -38,7 +67,7 @@ class GenericHelpers{
 	 * @return Returns a randomly generated clear text 16 character string.
 	 */
 	public function generateRandom16CharacterString(){
-
+		return generateRandomString(16);
 	}
 
 	/**
@@ -47,7 +76,7 @@ class GenericHelpers{
 	 * @return Returns a randomly generated clear text 32 character string.
 	 */
 	public function generateRandom32CharacterString(){
-
+		return generateRandomString(32);
 	}
 
 	/**
@@ -56,6 +85,14 @@ class GenericHelpers{
 	 * @return Returns a randomly generated clear text 64 character string.
 	 */
 	public function generateRandom64CharacterString(){
+		return generateRandomString(64);
+	}
 
+	private function generateRandomString($size){
+		$result = "";
+	    for ($i = 0; $i < $size; $i++) {
+	        $result = $randomStringCharacters[rand(0, strlen($randomStringCharacters))];
+	    }
+	    return $result;
 	}
 }
