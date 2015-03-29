@@ -47,7 +47,7 @@ class HelperServiceProvider extends ServiceProvider {
 	    }
 
 	    //Require testing helpers
-	    require_once("tests/TestHelpers/TestsHelper.php");
+	    //require_once("tests/TestHelpers/TestsHelper.php");
 	    /*foreach ('tests/TestHelpers/*.php' as $filename){
 	        require_once($filename);
 	    }*/
