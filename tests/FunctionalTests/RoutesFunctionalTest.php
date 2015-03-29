@@ -323,7 +323,11 @@ class RoutesFunctionalTest extends TestCase {
 	 * @return void
 	 */
 	public function testShowCreateSpreadsheetRequestUnauthenticated(){
+		$this->checkIfUserLoggedInAndlogCurrentUserOut();
+		$this->assertEquals(false, Auth::check());
 
+		$this->call('GET', 'spreadsheet/create');
+		$this->assertResponseStatus(400);
 	}
 
 	/**
@@ -332,7 +336,14 @@ class RoutesFunctionalTest extends TestCase {
 	 * @return void
 	 */
 	public function testShowCreateSpreadsheetRequestAuthenticated(){
+		$this->checkIfUserLoggedInAndlogCurrentUserOut();
+		$this->logTestUserIn();
+		$this->assertEquals(true, Auth::check());
 
+		$this->call('GET', 'spreadsheet/create');
+		$this->assertResponseOk();
+
+		$this->checkIfUserLoggedInAndlogCurrentUserOut();
 	}
 
 	/**
