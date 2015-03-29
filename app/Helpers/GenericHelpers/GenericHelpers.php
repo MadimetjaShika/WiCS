@@ -8,7 +8,7 @@
 class GenericHelpers{
 
 	//Member variables
-	$randomStringCharacters = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ,./?!_-&#$%*";
+	private $randomStringCharacters = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ,./?!_-&#$%*";
 
 	/**
 	 * Sends an email to the receipient(s) specified in the mailObject, with the subject and 
@@ -91,7 +91,7 @@ class GenericHelpers{
 	private function generateRandomString($size){
 		$result = "";
 	    for ($i = 0; $i < $size; $i++) {
-	        $result = $randomStringCharacters[rand(0, strlen($randomStringCharacters))];
+	        $result = $this->randomStringCharacters[rand(0, strlen($this->randomStringCharacters))];
 	    }
 	    return $result;
 	}
