@@ -8,10 +8,15 @@ use Illuminate\Http\Request;
 /**
  * Controller to hanlde all functionality to do directly with users.
  * Specific logic should not be defined in this class, but should be 
- * referenced from the helper classes. Ensure that logic is not alread 
+ * referenced from the helper classes. Ensure that logic is not already 
  * defined before writing anything.
  */
 class ManageUsersController extends Controller {
+
+	public function __construct()
+	{
+		//$this->middleware('auth');
+	}
 
 	/**
 	 * Show the user's profile
@@ -19,7 +24,8 @@ class ManageUsersController extends Controller {
 	 * @return Response
 	 */
 	public function showProfile(){
-		//
+		return view('user.profile')
+			->with('userData', userProfileData());
 	}
 
 	/**
@@ -28,7 +34,8 @@ class ManageUsersController extends Controller {
 	 * @return Response
 	 */
 	public function showUsersForSuperUser(){
-		//
+		return view('user.super.userList')
+			->with('userList', listAllUsers());
 	}
 
 	/**
@@ -37,7 +44,7 @@ class ManageUsersController extends Controller {
 	 * @return Response
 	 */
 	public function removeUserForSuperUser(){
-		//
+		removeUserTemporarily();
 	}
 
 	/**
@@ -47,6 +54,7 @@ class ManageUsersController extends Controller {
 	 * @return Response
 	 */
 	public function modifyUserProfile($id){
-		//
+		return view('user.editProfile')
+			->with('userData', userProfileData());
 	}
 }

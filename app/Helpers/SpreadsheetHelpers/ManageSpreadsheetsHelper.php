@@ -50,6 +50,15 @@ class ManageSpreadsheetsHelper{
 	}
 
 	/**
+	 * Searches for and returns a list of all spreadsheets linked to the user instance.
+	 * 
+	 * @return Returns an array listing all the spreadsheets linked to the user instance.
+	 */
+	public function spreadsheetList($userInstance){
+
+	}
+
+	/**
 	 * Searches for and returns an instance of the spreadsheet passed as parameter.
 	 *
 	 * @return Returns an instance of the spreadsheet if the spreadsheet was found, 

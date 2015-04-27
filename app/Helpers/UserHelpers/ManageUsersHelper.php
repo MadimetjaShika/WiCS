@@ -228,4 +228,25 @@ class ManageUsersHelper{
 	public function makeUserContributorToSpreadsheet($userInstance, AbstractSpreadsheet $spreadsheetInstance){
 
 	}
+
+	/**
+	 * Collects and returns a user's inofrmation relevant to the viewing of a 
+	 * profile.
+	 * 
+	 * @param $userInstance An instance of the user whose information is to be returned.
+	 * 
+	 * @return Returns JSON object with user's information.
+	 */
+	public function userProfileData($userInstance){
+
+	}
+
+	/**
+	 * Returns an array listing all the users on the application.
+	 * 
+	 * @return Returns array listing all user on the application.
+	 */
+	public function listAllUsers(){
+		
+	}
 }
