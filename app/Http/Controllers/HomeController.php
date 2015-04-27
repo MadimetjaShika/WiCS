@@ -41,7 +41,7 @@ class HomeController extends Controller {
 	 * @return Response
 	 */
 	public function showHelp(){
-
+		return view('help.blade.php');
 	}
 
 	/**
@@ -50,6 +50,6 @@ class HomeController extends Controller {
 	 * @return Response
 	 */
 	public function showInsufficientPrivileges(){
-
+		return view('errors.insufficientPrivileges');
 	}
 }

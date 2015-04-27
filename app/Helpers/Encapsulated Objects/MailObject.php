@@ -98,8 +98,7 @@ class MailObject{
 	 * @param $value The value of the new parameter
 	 */
 	public function addParameters($key, $value){
-		$this->attachementsArray[$key][] = $value;
-		//array_push($this->attachementsArray, $attachment);
+		$this->attachementsArray = array_add($this->attachementsArray, $key, $value);
 	}
 
 	/**
